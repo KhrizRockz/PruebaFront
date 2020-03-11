@@ -1,0 +1,103 @@
+<html lang="en" ng-app="modulo">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" >
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/open-iconic-master/font/css/open-iconic-bootstrap.css">
+
+    <title>Clientes</title>
+  </head>
+  <body ng-controller="controlador">
+    <div class="container">
+        <button type="button" class="btn btn-success float-right" ng-click="agregarCliente();">Agregar cliente</button>        
+    </div>
+      <h1>Listado Clientes</h1>
+    <div class="container tabla-Encabezado">
+        <div class="row">
+            <div class="col-2">Nombre: </div>
+            <div class="col-3">Correo Electrónico:</div>
+            <div class="col-2">Fecha Nacimiento:</div>
+            <div class="col-1">Estatus:</div>
+            <div class="col-2">Límite de crédito:</div>
+            <div class="col-2">Acciones:</div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" ng-repeat="cliente in Clientes">
+            <div class="col-2">{{cliente.nombreCompleto}}</div>
+            <div class="col-3">{{cliente.correoElectronico}}</div>
+            <div class="col-2">{{cliente.edad}}</div>
+            <div class="col-1">{{cliente.estatusCliente}}</div>
+            <div class="col-2">{{cliente.limiteCredito}}</div>
+            <div class="col-2">
+              <button type="button" class="btn btn-primary" ng-click="editarCliente(cliente)">
+                <img src="css/svg/editar.png">             
+              </button>
+              <button type="button" class="btn btn-danger" ng-click="eliminarCliente(cliente)">
+                <img src="css/svg/eliminar.png">             
+              </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/controlador.js"></script>
+
+    <div id="cliente" class="modal" ng-model="clienteEditado">
+      <div class="modal-content"> 
+        <div class="container">
+          <span class="close float-right" ng-click="cerrarModal('cliente');">&times;</span>
+          <h1>Agregar Cliente</h1>
+          <div class="col">Nombre Completo:</div>
+          <input type="text" class="form-control" ng-model="clienteEditado.nombreCompleto" placeholder="Ingrese nombre completo">          
+          <div class="col">RFC:</div>
+          <input type="text" class="form-control" ng-model="clienteEditado.rfc" placeholder="Ingrese nombre completo">          
+          <div class="col">Correo electrónico:</div>
+          <input type="email" class="form-control" ng-model="clienteEditado.correoElectronico" placeholder="nombre@dominio">
+          <div class="col">Password:</div>
+          <input type="password" class="form-control" ng-model="clienteEditado.password" placeholder="Password">
+          <div class="col">Celular:</div>
+          <input type="text" class="form-control" ng-model="clienteEditado.telefonoMovil" placeholder="Teléfono Celular">
+          
+          <div class="col">Fecha de Nacimiento:</div>
+          <input type="date" class="form-control" ng-model="clienteEditado.fechaNacimiento" placeholder="dd/mm/yyyy">
+          <div class="col">Estatus persona:</div>
+          <select class="form-control" ng-model="clienteEditado.estatusClienteId">
+            <option value=1>ACTIVO</a>
+            <option value=0>INACTIVO</a>
+          </select>
+          <div class="col">Domicilio:</div>
+          <input type="text" class="form-control" ng-model="clienteEditado.domicilio" placeholder="Iingrese su domicilio">
+          <div class="col">Límite de crédito:</div>
+          <input type="number" class="form-control" ng-model="clienteEditado.limiteCredito">
+          <button type="button" class="btn btn-primary float-right" ng-click="guardar();">Guardar</button>          
+          <button type="button" class="btn btn-secondary float-right" ng-click="cerrarModal('cliente');">Cerrar</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="confirmacion" class="modal" ng-model="clienteAEliminar">
+      <div class="modal-content"> 
+        <div class="container">
+          <span class="close float-right" ng-click="cerrarModal('confirmacion');">&times;</span>
+          <p>¿Desea eliminar al cliente {{clienteAEliminar.nombreCompleto}}</p>
+          <button type="button" class="btn btn-primary" ng-click="confirmarEliminacion(clienteAEliminar.clienteId)">
+            SI            
+          </button>
+          <button type="button" class="btn btn-danger" ng-click="cerrarModal('confirmacion')">
+            NO          
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
